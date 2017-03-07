@@ -1,0 +1,9 @@
+FROM centos:7
+MAINTAINER <kuldeeparyadotcom@gmail.com>
+
+VOLUME /data
+WORKDIR /data
+
+RUN yum -y update && yum -y install sudo tmux tree git vim
+RUN git config --global user.name "KD"
+RUN git config --global user.email "kuldeeparyadotcom@gmail.com"

@@ -1,3 +1,10 @@
+#Git
+Get git docker container if you don't have git locally 
+docker build -f Dockerfile_git -t kuldeeparyadotcom/git:snapshot .
+
+Run a container to run Git (Mind volume that you're mounting) 
+docker run --rm -it -v /Users/KD/timetable_server:/data kuldeeparyadotcom/git:snapshot
+
 #Node
 Image Creation docker build -f Dockerfile_node -t kuldeeparyadotcom/timetable_server_node:snapshot .
 
