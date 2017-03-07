@@ -1,0 +1,8 @@
+FROM node:7.7
+MAINTAINER <kuldeeparyadotcom@gmail.com>
+
+VOLUME /data
+WORKDIR /data
+
+EXPOSE 3000
+EXPOSE 3001
