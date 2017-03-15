@@ -20,3 +20,10 @@ cd timetable_server && npm install
 
 Run the app:
 DEBUG=timetable-server:* npm start
+
+#Mongo db
+Build mongo image
+
+docker build -f Dockerfile_mongo -t kuldeeparyadotcom/mongo:snapshot .
+Run Mondo db container
+docker run -it --name timetable_mongo -p 27017:27017 kuldeeparyadotcom/timetable_mongo:snapshot
