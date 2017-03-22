@@ -11,6 +11,22 @@ var users = require('./routes/users');
 var timetableitems = require('./routes/timetableitems');
 var timetableitem = require('./routes/timetableitem');
 
+
+
+//Mongodb Connection - Use this connection for entire app
+var TimetableItem = require('./models/timetableitems');
+var config = require('config');
+var dbConfig = config.get('timetable.dbConfig');
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://' + dbConfig.host + ':' + dbConfig.port + '/' + dbConfig.database, function(error) {
+  if (error) {
+    console.log('Database Connection Error', error);
+  }
+});
+//Mongodb connection configuration end
+
+
 var app = express();
 
 // view engine setup

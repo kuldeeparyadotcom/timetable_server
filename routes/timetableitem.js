@@ -3,18 +3,16 @@ var router = express.Router();
 
 var TimetableItem = require('../models/timetableitems');
 
+var config = require('config');
+var dbConfig = config.get('timetable.dbConfig');
+
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://192.168.1.69:27017/timetable');
 
 /* GET home page. */
 router.post('/', function(req, res, next) {
 
   //Logic to add item to mongodb
   var timetableitem = new TimetableItem({
-      // start_time: "09:00 AM",
-      // end_time: "09:30 AM",
-      // description: "Dummy Task",
-      // status: "Not Started"
       start_time: req.body.start_time,
       end_time: req.body.end_time,
       description: req.body.description,
