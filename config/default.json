@@ -2,7 +2,6 @@
   //Mongo DB Database details
   "timetable": {
     "dbConfig": {
-      "host": "192.168.1.69",
       "port": 27017,
       "database": "timetable"
     }

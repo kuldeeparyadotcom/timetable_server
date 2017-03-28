@@ -18,8 +18,14 @@ var TimetableItem = require('./models/timetableitems');
 var config = require('config');
 var dbConfig = config.get('timetable.dbConfig');
 
+// timetable_mongo_username="timetable_user";
+// timetable_mongo_password="time_sec_123";
+timetable_mongo_host = process.env.TIMETABLE_MONGO_HOST
+timetable_mongo_username = process.env.TIMETABLE_MONGO_USERNAME
+timetable_mongo_password = process.env.TIMETABLE_MONGO_PASSWORD
+
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://' + dbConfig.host + ':' + dbConfig.port + '/' + dbConfig.database, function(error) {
+mongoose.connect('mongodb://' + timetable_mongo_username+":"+timetable_mongo_password+"@"+timetable_mongo_host + ':' + dbConfig.port + '/' + dbConfig.database, function(error) {
   if (error) {
     console.log('Database Connection Error', error);
   }
