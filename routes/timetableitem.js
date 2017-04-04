@@ -19,16 +19,17 @@ router.post('/', function(req, res, next) {
       status: req.body.status
   });
   
-  timetableitem.save(function(err) {
+  timetableitem.save(function(err, result) {
     if(err){
-      console.log(err);
-      res.send({
-        "title": 'Error Occurred!',
-        "error": err
-      });
-      return
+	return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            });
     }
-    res.send('New Timetable item created!');
+            res.status(201).json({
+            message: 'Saved Timetable Item!',
+            obj: result
+        });
   });
   
 });
