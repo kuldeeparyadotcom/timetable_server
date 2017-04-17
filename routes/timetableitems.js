@@ -24,7 +24,8 @@ router.use('/', function(req, res, next){
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    TimetableItem.find({}, function(err, docs) {
+    var decoded  = jwt.decode(req.query.token);
+    TimetableItem.find({ 'user': decoded.user._id }, function(err, docs) {
       if(err) {
         console.log(err);
       }
