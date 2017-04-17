@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var TimetableItem = require('../models/timetableitems');
+var TimetableUser = require('../models/timetableusers');
 
 var config = require('config');
 var dbConfig = config.get('timetable.dbConfig');
@@ -25,12 +26,21 @@ router.use('/', function(req, res, next){
 /* GET home page. */
 router.post('/', function(req, res, next) {
 
-  //Logic to add item to mongodb
+  var decoded = jwt.decode(req.query.token);  
+  TimetableUser.findById(decoded.user._id, function(err, user) {
+     if(err){
+	return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            });
+    }
+      //Logic to add item to mongodb
   var timetableitem = new TimetableItem({
       start_time: req.body.start_time,
       end_time: req.body.end_time,
       description: req.body.description,
-      status: req.body.status
+      status: req.body.status,
+      user: user
   });
   
   timetableitem.save(function(err, result) {
@@ -39,13 +49,16 @@ router.post('/', function(req, res, next) {
                 title: 'An error occurred',
                 error: err
             });
-    }
-            res.status(201).json({
-            message: 'Saved Timetable Item!',
-            obj: result
-        });
+     }
+     user.timetableItems.push(result);
+     user.save();
+ 
+    res.status(201).json({
+        message: 'Saved Timetable Item!',
+        obj: result
+    });
   });
-  
+  });
 });
 
 module.exports = router;

@@ -10,7 +10,8 @@ var timetableuser = new Schema({
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
     firstname: {type: String, required: true},
-    lastname: {type: String, required: true}
+    lastname: {type: String, required: true},
+    timetableItems: [{type: Schema.Types.ObjectId, ref: 'TimetableItem'}]
 });
 
 timetableuser.plugin(mongooseUniqueValidator);

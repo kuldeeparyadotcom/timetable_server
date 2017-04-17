@@ -1,5 +1,6 @@
 
 var mongoose = require('mongoose');
+var TimetableUser = require('./timetableusers');
 
 var Schema = mongoose.Schema;
 //var ObjectID = Schema.ObjectID;
@@ -8,7 +9,15 @@ var timetableitem = new Schema({
     start_time: {type: String, required: true},
     end_time: {type: String, required: true},
     description: {type: String, required: true},
-    status: {type: String}
+    status: {type: String},
+    user: { type: Schema.Types.ObjectId, ref: 'TimetableUser'}
+});
+
+timetableitem.post('remove', function(timetableItem) {
+    TimetableUser.findById(timetableItem.user, function(err, user) {
+        user.timetableItems.pull(timetableItem);
+        user.save();
+    });
 });
 
 module.exports = mongoose.model('TimetableItem', timetableitem);
